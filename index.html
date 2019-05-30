@@ -39,9 +39,7 @@
                             <input type="submit" value="Поиск.." ng-click="vm.Search()">
                         </form>
                         <h1>Погода в {{vm.City}}</h1>
-
                         <div ng-include="'views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
-
                         <p class="error">
                             {{vm.error}}
                         </p>
