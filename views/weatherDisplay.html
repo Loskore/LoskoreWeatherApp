@@ -1,0 +1,9 @@
+<div class="condition">
+    <p ng-repeat="temp in vm.Temperatures | orderBy:'Units'"><img class="weatherIcon" src="{{vm.IconUrl}}">{{temp.Current | number:1}}&deg;</p>
+</div>
+<div>Условия: {{vm.Description}}</div>
+<div>Ветер: {{vm.Wind}} м/с</div>
+<div>Влажность: {{vm.Humidity}} %</div>
+<div class="disclaimer">Weather data provider by OpenWeatherMap,
+    <a href="http://openweathermap.org/">http://openweathermap.org/</a>
+</div>

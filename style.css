@@ -1,0 +1,22 @@
+.error {
+    color: darkred;
+    font-style: italic;
+}
+
+.condition {
+    font-size: x-large;
+}
+
+.disabled {
+    display: none;
+}
+
+.error {
+    color: darkred;
+    font-style: italic;
+}
+
+.disclaimer {
+    font-size: xx-small;
+    font-style: italic;
+}

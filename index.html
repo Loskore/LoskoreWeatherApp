@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS-links-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <title>
+        Сервис "Погода"
+    </title>
+
+    <!-- JS-modules-->
+    <script data-require="angular.js@1.6.9" data-semver="1.6.9" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- Mymodules-->
+    <script type="text/javascript" src="controllers/myscript.js"></script>
+    <script type="text/javascript" src="services/weatherService.js"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAIz6pHxMlcJhwibApXqoLXi4_IrZKN_Ag&ver=3.exp"></script>
+    <script type="text/javascript" src="services/geolocation.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- OpenWeatherMap widget-->
+            <div ng-app="WeatherApp">
+                <div ng-cloak ng-controller="main as vm">
+                    <div class="col-sm-5">
+                        <br>
+                        <form name="weatherForm">
+                            <input type="search" placeholder="Город" required id="currentcity">
+                            <input type="submit" value="Поиск.." ng-click="vm.Search()">
+                        </form>
+                        <h1>Погода в {{vm.City}}</h1>
+
+                        <div ng-include="'views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+
+                        <p class="error">
+                            {{vm.error}}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- -->
+                <div class="col-sm-1"></div>
+                <!-- Локальный список городов-->
+                <div ng-controller="myCities">
+                    <div class="col-sm-6">
+                        <div class="w3-card-2 w3-margin" style="max-width:500px;">
+                            <div ng-controller="myTimeCtrl" style="margin-left: 15px">
+                                <br>
+                                <dl>
+                                    <b class="text-left">Текущее время:</b> {{theTime}}
+                                </dl>
+                            </div>
+                            <header class="w3-container w3-light-grey w3-padding-16">
+                                <h3>Мои города</h3>
+                            </header>
+                            <ul class="w3-ul">
+                                <li ng-click="selectCity($index)" ng-repeat="x in cities" style="cursor:context-menu;" class="w3-padding-16">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">×</span></li>
+                            </ul>
+                            <div class="w3-container w3-light-grey w3-padding-16">
+                                <div class="w3-row w3-margin-top">
+                                    <div class="w3-col s9">
+                                        <input placeholder="Добавьте новый город" ng-model="addMe" class="w3-input w3-border w3-padding">
+                                    </div>
+                                    <div class="w3-col s3">
+                                        <button ng-click="addItem()" class="w3-btn w3-padding w3-green" style="margin-left: 5px; margin-top: 2px;">Добавить</button>
+                                    </div>
+                                </div>
+                                <p class="w3-text-red">{{errortext}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JS context! -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successlocation, errorlocation);
+            } else {
+                alert('Geolocation not found!');
+            }
+        });
+    </script>
+    <!-- JS end! -->
+</body>
+
+</html>
